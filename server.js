@@ -62,7 +62,7 @@ app.post("/upload", upload.single("image"), verifyToken, async (req, res) => {
 
     const metadata = req.body.metadata ? JSON.parse(req.body.metadata) : {};
     const imageName = req.body.imageName || req.file.originalname;
-   // console.log(req);
+    console.log("***state 1***);
 
     const uploadResponse = await objectManager.upload(imageName, req.file.buffer);
     const cid = uploadResponse.cid;
@@ -77,6 +77,7 @@ app.post("/upload", upload.single("image"), verifyToken, async (req, res) => {
       timestamp: metadata.timestamp,
       fileType: req.file.mimetype,
     });
+    console.log("***state 2***);
 
     await newImage.save();
     res.status(200).json({ message: "File uploaded successfully", cid });
